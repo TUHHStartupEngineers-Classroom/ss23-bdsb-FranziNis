@@ -39,7 +39,7 @@
     "href": "content/01_journal/02_data_acquisition.html",
     "title": "Data Acquisition",
     "section": "",
-    "text": "Note\n\n\n\nYou can delete everything in here and start fresh."
+    "text": "Note\n\n\n\nYou can delete everything in here and start fresh.\n\n\n\n1 I am hoping this works out.\nThe following should be a code. It does not with the code\nTEST 123 TEST 123"
   },
   {
     "objectID": "content/02_notes/05_class_notes.html",
@@ -53,7 +53,7 @@
     "href": "index.html",
     "title": "My Lab Journal",
     "section": "",
-    "text": "This is a template example for lab journaling. Students in the data science courses at the Institute of Entrepreneurship will use this template to learn R for business analytics. Students can replace this text as they wish."
+    "text": "My first few changes\nThis is a template example for lab journaling. Students in the data science courses at the Institute of Entrepreneurship will use this template to learn R for business analytics. Students can replace this text as they wish."
   },
   {
     "objectID": "index.html#how-to-use",
@@ -61,5 +61,19 @@
     "title": "My Lab Journal",
     "section": "How to use",
     "text": "How to use\n\nAccept the assignment and get your own github repo.\nBlog/journal what you are doing in R, by editing the .qmd files.\nSee the links page for lots of helpful links on learning R.\nChange everything to make it your own.\nMake sure to render you website everytime before you want to upload changes"
+  },
+  {
+    "objectID": "content/01_journal/01_tidyverse - Kopie.html",
+    "href": "content/01_journal/01_tidyverse - Kopie.html",
+    "title": "Tidyverse - Challenge 1",
+    "section": "",
+    "text": "1 I am hoping this works out.\nThe following should be a code. It does not with the code"
+  },
+  {
+    "objectID": "content/01_journal/05_tidyverse - Kopie.html",
+    "href": "content/01_journal/05_tidyverse - Kopie.html",
+    "title": "Tidyverse - Challenge 1",
+    "section": "",
+    "text": "1 I am hoping this works out.\nThe following should be a code. It does not with the code"
   }
 ]
