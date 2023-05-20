@@ -97,6 +97,8 @@ cars
 plot(cars)
 ```
 
+
+# Upload Challenge 1
 ```{r}
 # CHALLENGE 1 Preparation ----
 # 1.0 Load libraries ----
