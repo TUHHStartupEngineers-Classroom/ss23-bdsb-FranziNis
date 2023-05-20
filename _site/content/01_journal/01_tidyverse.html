@@ -199,7 +199,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="toc-section-number">4</span>  Lists</a></li>
   <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="toc-section-number">5</span>  Tables</a></li>
   <li><a href="#source-code" id="toc-source-code" class="nav-link" data-scroll-target="#source-code"><span class="toc-section-number">6</span>  Source Code</a></li>
-  <li><a href="#upload-challenge-1" id="toc-upload-challenge-1" class="nav-link" data-scroll-target="#upload-challenge-1"><span class="toc-section-number">7</span>  Upload Challenge 1</a></li>
+  <li>
+<a href="#upload-challenge-1" id="toc-upload-challenge-1" class="nav-link" data-scroll-target="#upload-challenge-1"><span class="toc-section-number">7</span>  Upload Challenge 1</a>
+  <ul class="collapse">
+<li><a href="#revenue-by-state" id="toc-revenue-by-state" class="nav-link" data-scroll-target="#revenue-by-state"><span class="toc-section-number">7.1</span>  Revenue by state</a></li>
+  <li><a href="#revenue-by-state-and-year" id="toc-revenue-by-state-and-year" class="nav-link" data-scroll-target="#revenue-by-state-and-year"><span class="toc-section-number">7.2</span>  Revenue by state and year</a></li>
+  </ul>
+</li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -371,41 +377,44 @@ Note
 </div>
 </div>
 </div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Clean up this page when you are done</p>
+</div>
+</div>
 </section><section id="upload-challenge-1" class="level1" data-number="7"><h1 data-number="7">
 <span class="header-section-number">7</span> Upload Challenge 1</h1>
-<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-4_aad226fe00f59f65c2a0dcd91d05d5c5">
+<section id="revenue-by-state" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="revenue-by-state">
+<span class="header-section-number">7.1</span> Revenue by state</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-4_90e42493070ae25009b8b67f26ac09c0">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># CHALLENGE 1 Preparation ----</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co"># 1.0 Load libraries ----</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>#&gt; -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
-#&gt; v dplyr     1.1.2     v readr     2.1.4
-#&gt; v forcats   1.0.0     v stringr   1.5.0
-#&gt; v ggplot2   3.4.2     v tibble    3.2.1
-#&gt; v lubridate 1.9.2     v tidyr     1.3.0
-#&gt; v purrr     1.0.1     
-#&gt; -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-#&gt; x dplyr::filter() masks stats::filter()
-#&gt; x dplyr::lag()    masks stats::lag()
-#&gt; i Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># 2.0 Importing Files ----</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>bikes_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">"../../ds_data/01_bike_sales/01_raw_data/bikes.xlsx"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7"></a>orderlines_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">"../../ds_data/01_bike_sales/01_raw_data/orderlines.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co"># 2.0 Importing Files ----</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>bikes_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">"../../ds_data/01_bike_sales/01_raw_data/bikes.xlsx"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>orderlines_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">"../../ds_data/01_bike_sales/01_raw_data/orderlines.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>#&gt; New names:
 #&gt; * `` -&gt; `...1`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>bikeshops_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">"../../ds_data/01_bike_sales/01_raw_data/bikeshops.xlsx"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co"># Procedure Plan, data clean up ----</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Like in the exercise</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># 3. Joining data ----</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="fu">left_join</span>(orderlines_tbl, bikes_tbl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"product.id"</span> <span class="ot">=</span> <span class="st">"bike.id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bikeshops_tbl <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">"../../ds_data/01_bike_sales/01_raw_data/bikeshops.xlsx"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># Procedure Plan, data clean up ----</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Like in the exercise</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># 3. Joining data ----</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">left_join</span>(orderlines_tbl, bikes_tbl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"product.id"</span> <span class="ot">=</span> <span class="st">"bike.id"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -414,10 +423,10 @@ Note
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>bike_orderlines_joined_2_tbl <span class="ot">&lt;-</span> orderlines_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">left_join</span>(bikes_tbl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"product.id"</span> <span class="ot">=</span> <span class="st">"bike.id"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">left_join</span>(bikeshops_tbl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"customer.id"</span> <span class="ot">=</span> <span class="st">"bikeshop.id"</span>))</span>
-<span id="cb11-4"><a href="#cb11-4"></a>bike_orderlines_joined_2_tbl <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>bike_orderlines_joined_2_tbl <span class="ot">&lt;-</span> orderlines_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">left_join</span>(bikes_tbl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"product.id"</span> <span class="ot">=</span> <span class="st">"bike.id"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">left_join</span>(bikeshops_tbl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"customer.id"</span> <span class="ot">=</span> <span class="st">"bikeshop.id"</span>))</span>
+<span id="cb9-4"><a href="#cb9-4"></a>bike_orderlines_joined_2_tbl <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#&gt; Rows: 15,644
 #&gt; Columns: 19
@@ -441,50 +450,50 @@ Note
 #&gt; $ lat            &lt;dbl&gt; 53.57532, 53.57532, 53.07379, 53.07379, 48.78234, 48.78~
 #&gt; $ lng            &lt;dbl&gt; 10.015340, 10.015340, 8.826754, 8.826754, 9.180819, 9.1~</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># 4. Wrangling data ----</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>bike_orderlines_wrangled_2_tbl <span class="ot">&lt;-</span> bike_orderlines_joined_2_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>  </span>
-<span id="cb13-4"><a href="#cb13-4"></a>  <span class="co"># 5.1 Add the total price (price * quantity)</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">mutate</span>(<span class="at">total.price =</span> price <span class="sc">*</span> quantity) <span class="sc">%&gt;%</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a>  </span>
-<span id="cb13-7"><a href="#cb13-7"></a>  <span class="co"># 5.3 Optional: Reorganize. Using select to grab or remove unnecessary columns</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a>  <span class="co"># 5.3.1 by exact column name</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">select</span>(<span class="sc">-</span>...<span class="dv">1</span>, <span class="sc">-</span>gender, <span class="sc">-</span>category, <span class="sc">-</span>url, <span class="sc">-</span>model, <span class="sc">-</span>model.year, <span class="sc">-</span>frame.material, <span class="sc">-</span>weight, <span class="sc">-</span>name, <span class="sc">-</span>lat, <span class="sc">-</span>lng) <span class="sc">%&gt;%</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a>  </span>
-<span id="cb13-11"><a href="#cb13-11"></a>  <span class="co"># 5.3.2 by a pattern</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a>  <span class="co"># You can use the select_helpers to define patterns. </span></span>
-<span id="cb13-13"><a href="#cb13-13"></a>  <span class="co"># Type ?ends_with and click on Select helpers in the documentation</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">".id"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a>  </span>
-<span id="cb13-16"><a href="#cb13-16"></a>  <span class="co"># 5.3.3 Actually we need the column "order.id". Let's bind it back to the data</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a>  <span class="fu">bind_cols</span>(bike_orderlines_joined_2_tbl <span class="sc">%&gt;%</span> <span class="fu">select</span>(order.id)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a>  </span>
-<span id="cb13-19"><a href="#cb13-19"></a>  <span class="co"># 5.3.4 Separate the location</span></span>
-<span id="cb13-20"><a href="#cb13-20"></a>  <span class="fu">separate</span>(<span class="at">col =</span> location,</span>
-<span id="cb13-21"><a href="#cb13-21"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"city"</span>, <span class="st">"state"</span>),</span>
-<span id="cb13-22"><a href="#cb13-22"></a>           <span class="at">sep =</span> <span class="st">", "</span>,</span>
-<span id="cb13-23"><a href="#cb13-23"></a>           <span class="at">convert =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb13-24"><a href="#cb13-24"></a>  </span>
-<span id="cb13-25"><a href="#cb13-25"></a>  <span class="co"># 5.3.4 You can reorder the data by selecting the columns in your desired order.</span></span>
-<span id="cb13-26"><a href="#cb13-26"></a>  <span class="co"># You can use select_helpers like contains() or everything()</span></span>
-<span id="cb13-27"><a href="#cb13-27"></a>  <span class="fu">select</span>(order.id, city, state,</span>
-<span id="cb13-28"><a href="#cb13-28"></a>         price, quantity, total.price,</span>
-<span id="cb13-29"><a href="#cb13-29"></a>         <span class="fu">everything</span>())</span>
-<span id="cb13-30"><a href="#cb13-30"></a></span>
-<span id="cb13-31"><a href="#cb13-31"></a></span>
-<span id="cb13-32"><a href="#cb13-32"></a><span class="co"># CHALLENGE 1 ----</span></span>
-<span id="cb13-33"><a href="#cb13-33"></a><span class="co"># Challenge 1.1 ----</span></span>
-<span id="cb13-34"><a href="#cb13-34"></a></span>
-<span id="cb13-35"><a href="#cb13-35"></a><span class="co"># Step 1 - Manipulate</span></span>
-<span id="cb13-36"><a href="#cb13-36"></a>sales_by_loc_tbl <span class="ot">&lt;-</span> bike_orderlines_wrangled_2_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb13-37"><a href="#cb13-37"></a>  <span class="fu">select</span>(state, total.price) <span class="sc">%&gt;%</span></span>
-<span id="cb13-38"><a href="#cb13-38"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb13-39"><a href="#cb13-39"></a>  <span class="fu">summarize</span>(<span class="at">sales =</span> <span class="fu">sum</span>(total.price)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-40"><a href="#cb13-40"></a>  <span class="fu">mutate</span>(<span class="at">sales_text =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(sales, <span class="at">big.mark =</span> <span class="st">"."</span>,</span>
-<span id="cb13-41"><a href="#cb13-41"></a>                                     <span class="at">decimal.mark =</span> <span class="st">","</span>,</span>
-<span id="cb13-42"><a href="#cb13-42"></a>                                     <span class="at">prefix =</span> <span class="st">""</span>,</span>
-<span id="cb13-43"><a href="#cb13-43"></a>                                     <span class="at">suffix =</span> <span class="st">" €"</span>))</span>
-<span id="cb13-44"><a href="#cb13-44"></a>sales_by_loc_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># 4. Wrangling data ----</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>bike_orderlines_wrangled_2_tbl <span class="ot">&lt;-</span> bike_orderlines_joined_2_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="co"># 4.1 Add the total price (price * quantity)</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">mutate</span>(<span class="at">total.price =</span> price <span class="sc">*</span> quantity) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  </span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="co"># 4.3 Optional: Reorganize. Using select to grab or remove unnecessary columns</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="co"># 4.3.1 by exact column name</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">select</span>(<span class="sc">-</span>...<span class="dv">1</span>, <span class="sc">-</span>gender, <span class="sc">-</span>category, <span class="sc">-</span>url, <span class="sc">-</span>model, <span class="sc">-</span>model.year, <span class="sc">-</span>frame.material, <span class="sc">-</span>weight, <span class="sc">-</span>name, <span class="sc">-</span>lat, <span class="sc">-</span>lng) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>  </span>
+<span id="cb11-11"><a href="#cb11-11"></a>  <span class="co"># 4.3.2 by a pattern</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">".id"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a>  </span>
+<span id="cb11-14"><a href="#cb11-14"></a>  <span class="co"># 4.3.3 Actually we need the column "order.id". Let's bind it back to the data</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a>  <span class="fu">bind_cols</span>(bike_orderlines_joined_2_tbl <span class="sc">%&gt;%</span> <span class="fu">select</span>(order.id)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a>  </span>
+<span id="cb11-17"><a href="#cb11-17"></a>  <span class="co"># 4.3.4 Separate the location</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a>  <span class="fu">separate</span>(<span class="at">col =</span> location,</span>
+<span id="cb11-19"><a href="#cb11-19"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"city"</span>, <span class="st">"state"</span>),</span>
+<span id="cb11-20"><a href="#cb11-20"></a>           <span class="at">sep =</span> <span class="st">", "</span>,</span>
+<span id="cb11-21"><a href="#cb11-21"></a>           <span class="at">convert =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a>  </span>
+<span id="cb11-23"><a href="#cb11-23"></a>  <span class="co"># 4.3.4 You can reorder the data by selecting the columns in your desired order.</span></span>
+<span id="cb11-24"><a href="#cb11-24"></a>  <span class="fu">select</span>(order.id, city, state,</span>
+<span id="cb11-25"><a href="#cb11-25"></a>         price, quantity, total.price,</span>
+<span id="cb11-26"><a href="#cb11-26"></a>         <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb11-27"><a href="#cb11-27"></a>  </span>
+<span id="cb11-28"><a href="#cb11-28"></a>  <span class="co"># 4.4 Rename columns because we actually wanted underscores instead of the dots</span></span>
+<span id="cb11-29"><a href="#cb11-29"></a>  <span class="fu">set_names</span>(<span class="fu">names</span>(.) <span class="sc">%&gt;%</span> <span class="fu">str_replace_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>, <span class="st">"_"</span>))</span>
+<span id="cb11-30"><a href="#cb11-30"></a></span>
+<span id="cb11-31"><a href="#cb11-31"></a></span>
+<span id="cb11-32"><a href="#cb11-32"></a><span class="co"># CHALLENGE 1 ----</span></span>
+<span id="cb11-33"><a href="#cb11-33"></a></span>
+<span id="cb11-34"><a href="#cb11-34"></a><span class="co"># Challenge 1.1 Revenue by state ----</span></span>
+<span id="cb11-35"><a href="#cb11-35"></a><span class="co"># Step 1 - Manipulate</span></span>
+<span id="cb11-36"><a href="#cb11-36"></a>sales_by_loc_tbl <span class="ot">&lt;-</span> bike_orderlines_wrangled_2_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb11-37"><a href="#cb11-37"></a>  <span class="fu">select</span>(state, total_price) <span class="sc">%&gt;%</span></span>
+<span id="cb11-38"><a href="#cb11-38"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb11-39"><a href="#cb11-39"></a>  <span class="fu">summarize</span>(<span class="at">sales =</span> <span class="fu">sum</span>(total_price)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-40"><a href="#cb11-40"></a>  <span class="fu">mutate</span>(<span class="at">sales_text =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(sales, <span class="at">big.mark =</span> <span class="st">"."</span>,</span>
+<span id="cb11-41"><a href="#cb11-41"></a>                                     <span class="at">decimal.mark =</span> <span class="st">","</span>,</span>
+<span id="cb11-42"><a href="#cb11-42"></a>                                     <span class="at">prefix =</span> <span class="st">""</span>,</span>
+<span id="cb11-43"><a href="#cb11-43"></a>                                     <span class="at">suffix =</span> <span class="st">" €"</span>))</span>
+<span id="cb11-44"><a href="#cb11-44"></a>sales_by_loc_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -493,22 +502,22 @@ Note
   </script>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Step 2 - Visualize</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>sales_by_loc_tbl <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> sales)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2DC6D6"</span>) <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="co">#geom_label(aes(label = sales_text)) +</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="co">#geom_smooth(method = "lm", se = FALSE) +</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, </span>
-<span id="cb14-8"><a href="#cb14-8"></a>                                                    <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
-<span id="cb14-9"><a href="#cb14-9"></a>                                                    <span class="at">prefix =</span> <span class="st">""</span>, </span>
-<span id="cb14-10"><a href="#cb14-10"></a>                                                    <span class="at">suffix =</span> <span class="st">" €"</span>)) <span class="sc">+</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-12"><a href="#cb14-12"></a>    <span class="at">title =</span> <span class="st">"Revenue by state"</span>, </span>
-<span id="cb14-13"><a href="#cb14-13"></a>    <span class="at">x =</span> <span class="st">""</span>, </span>
-<span id="cb14-14"><a href="#cb14-14"></a>    <span class="at">y =</span> <span class="st">"Revenue"</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Step 2 - Visualize</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>sales_by_loc_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> sales)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2DC6D6"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="co">#geom_label(aes(label = sales_text)) +</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="co">#geom_smooth(method = "lm", se = FALSE) +</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, </span>
+<span id="cb12-8"><a href="#cb12-8"></a>                                                    <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
+<span id="cb12-9"><a href="#cb12-9"></a>                                                    <span class="at">prefix =</span> <span class="st">""</span>, </span>
+<span id="cb12-10"><a href="#cb12-10"></a>                                                    <span class="at">suffix =</span> <span class="st">" €"</span>)) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-12"><a href="#cb12-12"></a>    <span class="at">title =</span> <span class="st">"Revenue by state"</span>, </span>
+<span id="cb12-13"><a href="#cb12-13"></a>    <span class="at">x =</span> <span class="st">""</span>, </span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="at">y =</span> <span class="st">"Revenue"</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><a href="01_tidyverse_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="01_tidyverse_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></a></p>
@@ -516,9 +525,62 @@ Note
 </div>
 </div>
 </div>
+</section><section id="revenue-by-state-and-year" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="revenue-by-state-and-year">
+<span class="header-section-number">7.2</span> Revenue by state and year</h2>
+<div class="cell" data-hash="01_tidyverse_cache/html/unnamed-chunk-5_1b343d0ee26698550093f1ce745bbeac">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Challenge 1.2 Revenue by state and year ----</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co"># Step 1 - Manipulate</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>sales_by_loc_year_tbl <span class="ot">&lt;-</span> bike_orderlines_wrangled_2_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">select</span>(state, total_price, order_date) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(order_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">group_by</span>(state, year) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">summarize</span>(<span class="at">sales =</span> <span class="fu">sum</span>(total_price)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">mutate</span>(<span class="at">sales_text =</span> scales<span class="sc">::</span><span class="fu">dollar</span>(sales, <span class="at">big.mark =</span> <span class="st">"."</span>,</span>
+<span id="cb13-10"><a href="#cb13-10"></a>                                     <span class="at">decimal.mark =</span> <span class="st">","</span>,</span>
+<span id="cb13-11"><a href="#cb13-11"></a>                                     <span class="at">prefix =</span> <span class="st">""</span>,</span>
+<span id="cb13-12"><a href="#cb13-12"></a>                                     <span class="at">suffix =</span> <span class="st">" €"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#&gt; `summarise()` has grouped output by 'state'. You can override using the
+#&gt; `.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>sales_by_loc_year_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sales"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sales_text"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Baden-Württemberg","2":"2015","3":"1031924","4":"1.031.924 \\200"},{"1":"Baden-Württemberg","2":"2016","3":"1561658","4":"1.561.658 \\200"},{"1":"Baden-Württemberg","2":"2017","3":"1224152","4":"1.224.152 \\200"},{"1":"Baden-Württemberg","2":"2018","3":"1114327","4":"1.114.327 \\200"},{"1":"Baden-Württemberg","2":"2019","3":"1589029","4":"1.589.029 \\200"},{"1":"Bavaria","2":"2015","3":"1301461","4":"1.301.461 \\200"},{"1":"Bavaria","2":"2016","3":"1129852","4":"1.129.852 \\200"},{"1":"Bavaria","2":"2017","3":"1411851","4":"1.411.851 \\200"},{"1":"Bavaria","2":"2018","3":"1168783","4":"1.168.783 \\200"},{"1":"Bavaria","2":"2019","3":"1730872","4":"1.730.872 \\200"},{"1":"Berlin","2":"2015","3":"95853","4":"95.853 \\200"},{"1":"Berlin","2":"2016","3":"72361","4":"72.361 \\200"},{"1":"Berlin","2":"2017","3":"451293","4":"451.293 \\200"},{"1":"Berlin","2":"2018","3":"318974","4":"318.974 \\200"},{"1":"Berlin","2":"2019","3":"189952","4":"189.952 \\200"},{"1":"Bremen","2":"2015","3":"1395912","4":"1.395.912 \\200"},{"1":"Bremen","2":"2016","3":"2057760","4":"2.057.760 \\200"},{"1":"Bremen","2":"2017","3":"2557145","4":"2.557.145 \\200"},{"1":"Bremen","2":"2018","3":"1833844","4":"1.833.844 \\200"},{"1":"Bremen","2":"2019","3":"2808838","4":"2.808.838 \\200"},{"1":"Hamburg","2":"2015","3":"423090","4":"423.090 \\200"},{"1":"Hamburg","2":"2016","3":"636550","4":"636.550 \\200"},{"1":"Hamburg","2":"2017","3":"731678","4":"731.678 \\200"},{"1":"Hamburg","2":"2018","3":"930803","4":"930.803 \\200"},{"1":"Hamburg","2":"2019","3":"1152635","4":"1.152.635 \\200"},{"1":"Hesse","2":"2015","3":"308609","4":"308.609 \\200"},{"1":"Hesse","2":"2016","3":"225647","4":"225.647 \\200"},{"1":"Hesse","2":"2017","3":"338783","4":"338.783 \\200"},{"1":"Hesse","2":"2018","3":"330647","4":"330.647 \\200"},{"1":"Hesse","2":"2019","3":"355215","4":"355.215 \\200"},{"1":"Lower Saxony","2":"2015","3":"584386","4":"584.386 \\200"},{"1":"Lower Saxony","2":"2016","3":"639839","4":"639.839 \\200"},{"1":"Lower Saxony","2":"2017","3":"1055747","4":"1.055.747 \\200"},{"1":"Lower Saxony","2":"2018","3":"929624","4":"929.624 \\200"},{"1":"Lower Saxony","2":"2019","3":"897519","4":"897.519 \\200"},{"1":"Mecklenburg-Western Pomerania","2":"2015","3":"222003","4":"222.003 \\200"},{"1":"Mecklenburg-Western Pomerania","2":"2016","3":"75443","4":"75.443 \\200"},{"1":"Mecklenburg-Western Pomerania","2":"2017","3":"201218","4":"201.218 \\200"},{"1":"Mecklenburg-Western Pomerania","2":"2018","3":"21041","4":"21.041 \\200"},{"1":"Mecklenburg-Western Pomerania","2":"2019","3":"99269","4":"99.269 \\200"},{"1":"North Rhine-Westphalia","2":"2015","3":"3735092","4":"3.735.092 \\200"},{"1":"North Rhine-Westphalia","2":"2016","3":"3002792","4":"3.002.792 \\200"},{"1":"North Rhine-Westphalia","2":"2017","3":"4671541","4":"4.671.541 \\200"},{"1":"North Rhine-Westphalia","2":"2018","3":"4601681","4":"4.601.681 \\200"},{"1":"North Rhine-Westphalia","2":"2019","3":"5189507","4":"5.189.507 \\200"},{"1":"Saxony","2":"2015","3":"238371","4":"238.371 \\200"},{"1":"Saxony","2":"2016","3":"589994","4":"589.994 \\200"},{"1":"Saxony","2":"2017","3":"595378","4":"595.378 \\200"},{"1":"Saxony","2":"2018","3":"338344","4":"338.344 \\200"},{"1":"Saxony","2":"2019","3":"468158","4":"468.158 \\200"},{"1":"Saxony-Anhalt","2":"2015","3":"144737","4":"144.737 \\200"},{"1":"Saxony-Anhalt","2":"2016","3":"65901","4":"65.901 \\200"},{"1":"Saxony-Anhalt","2":"2017","3":"194509","4":"194.509 \\200"},{"1":"Saxony-Anhalt","2":"2018","3":"81163","4":"81.163 \\200"},{"1":"Saxony-Anhalt","2":"2019","3":"83304","4":"83.304 \\200"},{"1":"Schleswig-Holstein","2":"2015","3":"448844","4":"448.844 \\200"},{"1":"Schleswig-Holstein","2":"2016","3":"672710","4":"672.710 \\200"},{"1":"Schleswig-Holstein","2":"2017","3":"1076996","4":"1.076.996 \\200"},{"1":"Schleswig-Holstein","2":"2018","3":"572622","4":"572.622 \\200"},{"1":"Schleswig-Holstein","2":"2019","3":"453577","4":"453.577 \\200"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Step 2 - Visualize</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>sales_by_loc_year_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> sales, <span class="at">fill =</span> states)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2DC6D6"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> state)<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="co">#geom_label(aes(label = sales_text)) +</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="co">#geom_smooth(method = "lm", se = FALSE) +</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, </span>
+<span id="cb16-9"><a href="#cb16-9"></a>                                                    <span class="at">decimal.mark =</span> <span class="st">","</span>, </span>
+<span id="cb16-10"><a href="#cb16-10"></a>                                                    <span class="at">prefix =</span> <span class="st">""</span>, </span>
+<span id="cb16-11"><a href="#cb16-11"></a>                                                    <span class="at">suffix =</span> <span class="st">" €"</span>)) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-13"><a href="#cb16-13"></a>    <span class="at">title =</span> <span class="st">"Revenue by year and state"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14"></a>    <span class="at">fill =</span> <span class="st">"State"</span>,</span>
+<span id="cb16-15"><a href="#cb16-15"></a>    <span class="at">y =</span> <span class="st">"Revenue"</span>,</span>
+<span id="cb16-16"><a href="#cb16-16"></a>    <span class="at">x =</span> <span class="st">"Year"</span></span>
+<span id="cb16-17"><a href="#cb16-17"></a>  )<span class="sc">+</span></span>
+<span id="cb16-18"><a href="#cb16-18"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="01_tidyverse_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01_tidyverse_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -767,7 +829,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":true,"closeEffect":"zoom","descPosition":"bottom"});</script>
 
 
 </body></html>

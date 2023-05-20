@@ -97,8 +97,12 @@ cars
 plot(cars)
 ```
 
+::: callout-note
+Clean up this page when you are done
+:::
 
-# Upload Challenge 1
+# Upload Challenge 1 
+## Revenue by state
 ```{r}
 # CHALLENGE 1 Preparation ----
 # 1.0 Load libraries ----
@@ -124,42 +128,42 @@ bike_orderlines_joined_2_tbl %>% glimpse()
 # 4. Wrangling data ----
 bike_orderlines_wrangled_2_tbl <- bike_orderlines_joined_2_tbl %>%
   
-  # 5.1 Add the total price (price * quantity)
+  # 4.1 Add the total price (price * quantity)
   mutate(total.price = price * quantity) %>%
   
-  # 5.3 Optional: Reorganize. Using select to grab or remove unnecessary columns
-  # 5.3.1 by exact column name
+  # 4.3 Optional: Reorganize. Using select to grab or remove unnecessary columns
+  # 4.3.1 by exact column name
   select(-...1, -gender, -category, -url, -model, -model.year, -frame.material, -weight, -name, -lat, -lng) %>%
   
-  # 5.3.2 by a pattern
-  # You can use the select_helpers to define patterns. 
-  # Type ?ends_with and click on Select helpers in the documentation
+  # 4.3.2 by a pattern
   select(-ends_with(".id")) %>%
   
-  # 5.3.3 Actually we need the column "order.id". Let's bind it back to the data
+  # 4.3.3 Actually we need the column "order.id". Let's bind it back to the data
   bind_cols(bike_orderlines_joined_2_tbl %>% select(order.id)) %>%
   
-  # 5.3.4 Separate the location
+  # 4.3.4 Separate the location
   separate(col = location,
            into = c("city", "state"),
            sep = ", ",
            convert = T) %>%
   
-  # 5.3.4 You can reorder the data by selecting the columns in your desired order.
-  # You can use select_helpers like contains() or everything()
+  # 4.3.4 You can reorder the data by selecting the columns in your desired order.
   select(order.id, city, state,
          price, quantity, total.price,
-         everything())
+         everything()) %>%
+  
+  # 4.4 Rename columns because we actually wanted underscores instead of the dots
+  set_names(names(.) %>% str_replace_all("\\.", "_"))
 
 
 # CHALLENGE 1 ----
-# Challenge 1.1 ----
 
+# Challenge 1.1 Revenue by state ----
 # Step 1 - Manipulate
 sales_by_loc_tbl <- bike_orderlines_wrangled_2_tbl %>%
-  select(state, total.price) %>%
+  select(state, total_price) %>%
   group_by(state) %>%
-  summarize(sales = sum(total.price)) %>%
+  summarize(sales = sum(total_price)) %>%
   mutate(sales_text = scales::dollar(sales, big.mark = ".",
                                      decimal.mark = ",",
                                      prefix = "",
@@ -181,5 +185,41 @@ sales_by_loc_tbl %>%
     x = "", 
     y = "Revenue"
   ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Revenue by state and year
+```{r}
+# Challenge 1.2 Revenue by state and year ----
+# Step 1 - Manipulate
+sales_by_loc_year_tbl <- bike_orderlines_wrangled_2_tbl %>%
+  select(state, total_price, order_date) %>%
+  mutate(year = year(order_date)) %>%
+  group_by(state, year) %>%
+  summarize(sales = sum(total_price)) %>%
+  ungroup() %>%
+  mutate(sales_text = scales::dollar(sales, big.mark = ".",
+                                     decimal.mark = ",",
+                                     prefix = "",
+                                     suffix = " €"))
+sales_by_loc_year_tbl
+
+# Step 2 - Visualize
+sales_by_loc_year_tbl %>%
+  ggplot(aes(x = year, y = sales, fill = states)) +
+  geom_col(fill = "#2DC6D6") +
+  facet_wrap(~ state)+
+  #geom_label(aes(label = sales_text)) +
+  #geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
+                                                    decimal.mark = ",", 
+                                                    prefix = "", 
+                                                    suffix = " €")) +
+  labs(
+    title = "Revenue by year and state",
+    fill = "State",
+    y = "Revenue",
+    x = "Year"
+  )+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
