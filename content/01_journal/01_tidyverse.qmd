@@ -123,7 +123,7 @@ left_join(orderlines_tbl, bikes_tbl, by = c("product.id" = "bike.id"))
 bike_orderlines_joined_2_tbl <- orderlines_tbl %>%
   left_join(bikes_tbl, by = c("product.id" = "bike.id")) %>%
   left_join(bikeshops_tbl, by = c("customer.id" = "bikeshop.id"))
-bike_orderlines_joined_2_tbl %>% glimpse()
+bike_orderlines_joined_2_tbl
 
 # 4. Wrangling data ----
 bike_orderlines_wrangled_2_tbl <- bike_orderlines_joined_2_tbl %>%

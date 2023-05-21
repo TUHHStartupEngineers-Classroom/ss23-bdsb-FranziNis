@@ -1,13 +1,75 @@
 ---
 title: "Data Acquisition"
-author: "Joschka Schwarz"
+author: "Franziska Nissen"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Challenge 2.1
 
-# I am hoping this works out.
-The following should be a code. It does not with the code
+For the first challenge I looked up the weather in Moliets-et-Maa since this is one of my vacation destinations for this summer.
 
-TEST 123 TEST 123
+```{r}
+# 1.0 LIBRARIES ----
+
+library(tidyverse) # Main Package - Loads dplyr, purrr, etc.
+library(rvest)     # HTML Hacking & Web Scraping
+library(xopen)     # Quickly opening URLs
+library(jsonlite)  # converts JSON files to R objects
+library(glue)      # concatenate strings
+library(stringi)   # character string/text processing
+library(lubridate)
+
+# Moliets' weather forecast for the next 16 days (21.05.2023) ----
+weather_moliets          <- "https://www.wetter.com/wetter_aktuell/wettervorhersage/16_tagesvorhersage/frankreich/moliets-et-maa/FR2993520.html"
+html_weather    <- weather_moliets %>%
+  read_html()
+
+# The first week had another node than the last days, so I had to extract them two different ways and eventually add them back together
+date_8to16 <- html_weather %>%
+  html_nodes(".no-hover .date")%>%
+  html_text() %>%
+  stringr::str_extract("\\w+[:space:]\\d+\\.\\d+\\.") 
+date_8to16
+
+date_merged <- html_weather %>%
+  html_nodes(".bg--blue-gradient .date") %>% # these are only the first 7 days
+  html_text() %>%
+  c(date_8to16) # so I added the last 11 days
+date_merged 
+
+weekday <- date_merged %>%
+  stringr::str_extract("\\w+") # removes the date
+weekday
+
+# Create a year vector, so I can add it to the date (dd.mm.) to turn it into the date format
+year <- c("2023","2023","2023","2023","2023",
+          "2023","2023","2023","2023","2023",
+          "2023","2023","2023","2023","2023","2023") # I didn't know how to make it pretty
+
+date <- date_merged %>%
+  stringr::str_extract("\\d+\\.\\d+\\.") %>%  # extracting the weekday
+  paste(year) %>%
+  stringr::str_remove("[:space:]") %>% # removing the space
+  dmy() # That is the final date
+date
+
+max_temp <- html_weather %>%
+  html_nodes(".temp-max") %>%
+  html_text()
+max_temp
+
+min_temp <- html_weather %>%
+  html_nodes(".temp-min") %>%
+  html_text() %>%
+  stringr::str_extract("\\d+°") # removes the space and "/"
+min_temp
+
+weather_state <- html_weather %>%
+  html_nodes(".weather-state") %>%
+  html_text() %>%
+  stringr::str_extract("\\w+[:space:]\\w+|\\w+") # wasn't pretty w/o the extraction
+weather_state
+
+# The final tibble
+Weather_tbl_joined <- tibble(date, weekday, max_temp, min_temp, weather_state)
+Weather_tbl_joined
+```
