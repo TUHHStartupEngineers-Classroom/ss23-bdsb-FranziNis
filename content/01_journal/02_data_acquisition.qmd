@@ -40,6 +40,7 @@ weekday <- date_merged %>%
   stringr::str_extract("\\w+") # removes the date
 weekday
 
+# the dates of the weather forecast did not come with the year
 # Create a year vector, so I can add it to the date (dd.mm.) to turn it into the date format
 year <- c("2023","2023","2023","2023","2023",
           "2023","2023","2023","2023","2023",
