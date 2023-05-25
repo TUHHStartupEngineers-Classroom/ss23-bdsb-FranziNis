@@ -1,8 +1,60 @@
 ---
 title: "Data Visualization"
-author: "Joschka Schwarz"
+author: "Franziska Nissen"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Challenge 1
+
+```{r plot, fig.width=10, fig.height=7}
+library(tidyverse)
+library(RColorBrewer)
+library(lubridate)
+
+covid_data_tbl <- read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv")
+
+# I'll need the following: continent, location, date, total cases
+
+# Data Manipulation
+
+covid_time_tbl <- covid_data_tbl %>%
+  select(location, continent, date, total_cases) %>%
+  filter(location %in% c("Germany", "United Kingdom", "France", "Spain", "United States")) %>%
+  mutate(final_cases = max(total_cases, na.rm = TRUE)) %>% 
+  mutate(across(total_cases, ~replace_na(., 0))) 
+
+
+# Data Visualization
+
+covid_time_tbl %>%
+  
+  ggplot(aes(date, total_cases, color = location))+
+  
+  geom_line(linewidth = 1)+
+  #geom_label(aes(x = as.Date("2023-05-24"), y = 103436829, 
+  #       label = "103.436.829"), show.legend = TRUE)+
+  annotate(geom="text", x=as.Date("2023-05-24"), y= 107000000, 
+           label="103.436.829") +
+  
+  # Formatting
+  labs(
+    title = "COVID-19 confirmed cases",
+    subtitle = "as of 24/05/2023",
+    y = "Cumulative Cases",
+    x = ""
+  )+
+  scale_y_continuous(breaks = seq(0, 120000000, by = 20000000), minor_breaks = seq(0, 120000000, by = 10000000),
+                     labels = scales::label_number(scale = 1e-6, 
+                                                    prefix = "",
+                                                    suffix =" M"))+
+  scale_x_date(date_breaks = "2 months", date_labels = (date_format = "%B '%y"))+
+  scale_color_brewer("Countries", palette = "Dark2")+
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text.y = element_text(),
+    axis.title.y = element_text(face = "bold"),
+    axis.title.x = element_blank(),
+    legend.position = "bottom",
+    panel.grid = element_line(color = "grey"),
+    panel.background = element_blank()
+  )
+```
