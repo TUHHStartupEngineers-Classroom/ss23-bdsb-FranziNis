@@ -4,8 +4,10 @@ author: "Joschka Schwarz"
 ---
 
 ::: callout-note
-You can delete everything in here and start fresh.
+My Challenge is all the way down
 :::
+
+
 
 This is a `.qmd` file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a \# in front of your text, it will create a top level-header.
 
@@ -95,4 +97,131 @@ cars
 
 ```{r}
 plot(cars)
+```
+
+::: callout-note
+Clean up this page when you are done
+:::
+
+# Upload Challenge 1 
+## Revenue by state
+```{r}
+# CHALLENGE 1 Preparation ----
+# 1.0 Load libraries ----
+library(tidyverse)
+library(readxl)
+library(lubridate)
+library(ggplot2)
+
+# 2.0 Importing Files ----
+bikes_tbl <- read_excel(path = "../../ds_data/01_bike_sales/01_raw_data/bikes.xlsx")
+orderlines_tbl <- read_excel(path = "../../ds_data/01_bike_sales/01_raw_data/orderlines.xlsx")
+bikeshops_tbl <- read_excel(path = "../../ds_data/01_bike_sales/01_raw_data/bikeshops.xlsx")
+
+# Procedure Plan, data clean up ----
+# Like in the exercise
+# 3. Joining data ----
+left_join(orderlines_tbl, bikes_tbl, by = c("product.id" = "bike.id"))
+bike_orderlines_joined_2_tbl <- orderlines_tbl %>%
+  left_join(bikes_tbl, by = c("product.id" = "bike.id")) %>%
+  left_join(bikeshops_tbl, by = c("customer.id" = "bikeshop.id"))
+bike_orderlines_joined_2_tbl
+
+# 4. Wrangling data ----
+bike_orderlines_wrangled_2_tbl <- bike_orderlines_joined_2_tbl %>%
+  
+  # 4.1 Add the total price (price * quantity)
+  mutate(total.price = price * quantity) %>%
+  
+  # 4.3 Optional: Reorganize. Using select to grab or remove unnecessary columns
+  # 4.3.1 by exact column name
+  select(-...1, -gender, -category, -url, -model, -model.year, -frame.material, -weight, -name, -lat, -lng) %>%
+  
+  # 4.3.2 by a pattern
+  select(-ends_with(".id")) %>%
+  
+  # 4.3.3 Actually we need the column "order.id". Let's bind it back to the data
+  bind_cols(bike_orderlines_joined_2_tbl %>% select(order.id)) %>%
+  
+  # 4.3.4 Separate the location
+  separate(col = location,
+           into = c("city", "state"),
+           sep = ", ",
+           convert = T) %>%
+  
+  # 4.3.4 You can reorder the data by selecting the columns in your desired order.
+  select(order.id, city, state,
+         price, quantity, total.price,
+         everything()) %>%
+  
+  # 4.4 Rename columns because we actually wanted underscores instead of the dots
+  set_names(names(.) %>% str_replace_all("\\.", "_"))
+
+
+# CHALLENGE 1 ----
+
+# Challenge 1.1 Revenue by state ----
+# Step 1 - Manipulate
+sales_by_loc_tbl <- bike_orderlines_wrangled_2_tbl %>%
+  select(state, total_price) %>%
+  group_by(state) %>%
+  summarize(sales = sum(total_price)) %>%
+  mutate(sales_text = scales::dollar(sales, big.mark = ".",
+                                     decimal.mark = ",",
+                                     prefix = "",
+                                     suffix = " €"))
+sales_by_loc_tbl
+
+# Step 2 - Visualize
+sales_by_loc_tbl %>%
+  ggplot(aes(x = state, y = sales)) +
+  geom_col(fill = "#2DC6D6") +
+  #geom_label(aes(label = sales_text)) +
+  #geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
+                                                    decimal.mark = ",", 
+                                                    prefix = "", 
+                                                    suffix = " €")) +
+  labs(
+    title = "Revenue by state", 
+    x = "", 
+    y = "Revenue"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Revenue by state and year
+```{r}
+# Challenge 1.2 Revenue by state and year ----
+# Step 1 - Manipulate
+sales_by_loc_year_tbl <- bike_orderlines_wrangled_2_tbl %>%
+  select(state, total_price, order_date) %>%
+  mutate(year = year(order_date)) %>%
+  group_by(state, year) %>%
+  summarize(sales = sum(total_price)) %>%
+  ungroup() %>%
+  mutate(sales_text = scales::dollar(sales, big.mark = ".",
+                                     decimal.mark = ",",
+                                     prefix = "",
+                                     suffix = " €"))
+sales_by_loc_year_tbl
+
+# Step 2 - Visualize
+sales_by_loc_year_tbl %>%
+  ggplot(aes(x = year, y = sales, fill = states)) +
+  geom_col(fill = "#2DC6D6") +
+  facet_wrap(~ state)+
+  #geom_label(aes(label = sales_text)) +
+  #geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
+                                                    decimal.mark = ",", 
+                                                    prefix = "", 
+                                                    suffix = " €")) +
+  labs(
+    title = "Revenue by year and state",
+    fill = "State",
+    y = "Revenue",
+    x = "Year"
+  )+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```

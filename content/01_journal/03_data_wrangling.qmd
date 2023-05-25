@@ -1,8 +1,144 @@
 ---
 title: "Data Wrangling"
-author: "Joschka Schwarz"
+author: "Franziska Nissen"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+I had major problems with the data.table-package and could not complete this challenge. I think I would be able to do it if I still had more time to understand it.
+
+# Challenge
+
+I used the reduced data since the link for the original data did not work.
+
+```{r}
+library(vroom)
+library(tidyverse)
+library(dplyr)
+library(data.table)
+```
+
+## **Patent Dominance**
+
+**What US company / corporation has the most patents? List the 10 US companies with the most assigned/granted patents.**
+
+I think I did okay with the first question, but I did not really use the data.table-package. I guess I forgot to actually turn it into a data.table. And I don't know if I even used the right columns. 
+
+````{r}
+# Data preparation ----
+# Alternative 1:
+col_types <- list(    # reduced because the link for the original USPTO data was broken
+  id = col_character(),
+  #type = col_character(),
+  #number = col_character(),
+  #country = col_character(),
+  date = col_date("%Y-%m-%d"),
+  #abstract = col_character(),
+  #title = col_character(),
+  #kind = col_character(),
+  num_claims = col_double()
+  #filename = col_character(),
+  #withdrawn = col_double()
+)
+
+patent_tbl <- vroom(
+  file       = "../../Patent_data_reduced/patent.tsv", 
+  delim      = "\t", 
+  col_types  = col_types,
+  na         = c("", "NA", "NULL")
+)
+
+# assignee_tbl prep
+assignee_col_types <- list(
+  id = col_character(),
+  type = col_character(),
+  organization = col_character()
+)
+
+assignee_tbl <- vroom(
+  file       = "../../Patent_data_reduced/assignee.tsv", 
+  delim      = "\t", 
+  col_types  = assignee_col_types,
+  na         = c("", "NA", "NULL")
+)
+
+# patent_assignee_tbl prep
+patent_assignee_col_types <- list(
+  patent_id = col_character(),
+  assignee_id = col_character()
+)
+
+patent_assignee_tbl <- vroom(
+  file       = "../../Patent_data_reduced/patent_assignee.tsv", 
+  delim      = "\t", 
+  col_types  = patent_assignee_col_types,
+  na         = c("", "NA", "NULL")
+)
+
+# 1. Patent Dominance: What US company / corporation has the most patents? ----
+# List the 10 US companies with the most assigned/granted patents.
+
+# Rename id to assignee_id
+setnames(assignee_tbl, "id", "assignee_id")
+
+# Combine Data
+combined_assignee_tbl <- merge(x = assignee_tbl, y = patent_assignee_tbl,
+                               by = "assignee_id",
+                               all.x = TRUE, 
+                               all.y = FALSE)
+
+setnames(patent_tbl, "id", "patent_id")
+
+combine_patent_assignee_tbl <-  merge(x = combined_assignee_tbl, y = patent_tbl,
+                                      by = "patent_id",
+                                      all.x = TRUE, 
+                                      all.y = FALSE)
+
+combine_patent_assignee_tbl %>%
+  group_by(organization) %>%
+  summarise(granted_patents = sum(num_claims)) %>%
+  ungroup() %>%
+  arrange(desc(granted_patents)) %>%
+  slice(1:10)
+# I couldn't extract US companies
+```
+
+## **Recent patent activity**
+
+**What US company had the most patents granted in August 2014? List the top 10 companies with the most new granted patents for August 2014.**
+
+I couldn't finish this one. I did not understand how to set up the command to sort it by the organization, year, and month.
+
+```{r}
+# 2. Recent patent activity: What US company had the most patents granted in August 2014? ----
+# List the top 10 companies with the most new granted patents for August 2014.
+
+split_date_patent_tbl <- combine_patent_assignee_tbl %>%
+  mutate(date = as.character(date))%>%
+  separate(col = date,
+           into = c("year", "month", "day"),
+           sep = "-", remove = TRUE) %>%
+  mutate(
+    year = as.numeric(year),
+    month = as.numeric(month),
+    day = as.numeric(day)
+  )
+
+split_date_patent_dt <- as.data.table(split_date_patent_tbl)
+class(split_date_patent_dt)
+
+split_date_patent_dt %>%
+  mutate(num_claims = as.numeric(num_claims)) %>%
+  view()
+
+setkey(split_date_patent_dt, "organization")
+key(split_date_patent_dt)
+
+setorderv(split_date_patent_dt, c("organization", "year", "month"))
+
+# split_date_patent_dt[, ] # I don't know...
+```
+
+## **Innovation in Tech**
+
+**What is the most innovative tech sector? For the top 10 companies (worldwide) with the most patents, what are the top 5 USPTO tech main classes?**
+
+I did not even start this one.

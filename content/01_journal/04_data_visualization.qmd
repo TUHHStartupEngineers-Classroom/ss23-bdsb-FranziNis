@@ -1,8 +1,123 @@
 ---
 title: "Data Visualization"
-author: "Joschka Schwarz"
+author: "Franziska Nissen"
 ---
 
-::: callout-note
-You can delete everything in here and start fresh.
-:::
+# Challenge 1
+
+Unfortunately I was not able to print the y-axis-label in English. I also was not able to use `geom_label()` because I could not figure out how to only label the United States and on the end position. When I set it to a specific position the legend was referring to the text and not the line anymore...
+
+```{r plot, fig.width=10, fig.height=7}
+library(tidyverse)
+library(RColorBrewer)
+library(lubridate)
+
+covid_data_tbl <- read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv")
+
+# I'll need the following: continent, location, date, total cases
+
+# Data Manipulation
+
+covid_time_tbl <- covid_data_tbl %>%
+  select(location, continent, date, total_cases) %>%
+  filter(location %in% c("Germany", "United Kingdom", "France", "Spain", "United States")) %>%
+  mutate(final_cases = max(total_cases, na.rm = TRUE)) %>% 
+  mutate(across(total_cases, ~replace_na(., 0))) 
+
+
+# Data Visualization
+
+covid_time_tbl %>%
+  
+  ggplot(aes(date, total_cases, color = location))+
+  
+  geom_line(linewidth = 1)+
+  #geom_label(aes(x = as.Date("2023-05-24"), y = 103436829, 
+  #       label = "103.436.829"), show.legend = TRUE)+
+  annotate(geom="text", x=as.Date("2023-05-24"), y= 107000000, 
+           label="103.436.829") +
+  
+  # Formatting
+  labs(
+    title = "COVID-19 confirmed cases",
+    subtitle = "as of 24/05/2023",
+    y = "Cumulative Cases",
+    x = ""
+  )+
+  scale_y_continuous(breaks = seq(0, 120000000, by = 20000000), minor_breaks = seq(0, 120000000, by = 10000000),
+                     labels = scales::label_number(scale = 1e-6, 
+                                                    prefix = "",
+                                                    suffix =" M"))+
+  scale_x_date(date_breaks = "2 months", date_labels = (date_format = "%B '%y"))+
+  scale_color_brewer("Countries", palette = "Dark2")+
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text.y = element_text(),
+    axis.title.y = element_text(face = "bold"),
+    axis.title.x = element_blank(),
+    legend.position = "bottom",
+    panel.grid = element_line(color = "grey"),
+    panel.background = element_blank()
+  )
+```
+
+
+
+
+
+# Challenge 2
+
+This is the best I could do with the time I had. I could not render it and did not have the time to figure out why... It says it cannot use `x = long, y = lat,` so I took out and now there is no visual map. It actually is a map and looks really familiar to the one you uploaded... So I will just give you this.
+
+```{r}
+library(maps)
+library(tidyverse)
+library(RColorBrewer)
+library(lubridate)
+
+covid_data_tbl <- read_csv("https://covid.ourworldindata.org/data/owid-covid-data.csv")
+
+world <- map_data("world") %>%
+  select(region)
+
+world_map <- map_data("world")
+
+covid_world_tbl <- covid_data_tbl %>%
+  select(location, new_deaths, population) %>%
+  mutate(across(new_deaths, ~replace_na(., 0))) %>%
+  group_by(location, population) %>%
+  summarise(deaths = sum(new_deaths)) %>%
+  ungroup() %>%
+  mutate(mortality = deaths / population) %>%
+  mutate(location = case_when(
+    location == "United Kingdom" ~ "UK",
+    location == "United States" ~ "USA",
+    location == "Democratic Republic of Congo" ~ "Democratic Republic of the Congo",
+    TRUE ~ location
+  )) %>%
+  distinct() %>%
+  right_join(world, by = c("location" = "region"))
+
+sum(covid_world_tbl$deaths, na.rm = TRUE)
+ 
+
+# Data Visualization
+
+covid_world_tbl %>%
+  
+  ggplot(aes( fill = mortality)) +
+  geom_map(aes( map_id = location), map = world_map) + 
+  
+  # formatting
+  labs(
+    title = "Confirmed COVID-19 deaths relative to the size of the population",
+    subtitle = "Around 15.4 Million confirmed COVID-19 deaths worldwide",
+    y = "",
+    x = ""
+  )+
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+

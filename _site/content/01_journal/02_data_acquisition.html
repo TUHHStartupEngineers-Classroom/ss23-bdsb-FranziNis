@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
-
+<meta name="generator" content="quarto-1.2.475">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Joschka Schwarz">
-
+<meta name="author" content="Franziska Nissen">
 <title>MyLabJournal - Data Acquisition</title>
 <style>
 code{white-space: pre-wrap;}
@@ -21,8 +18,70 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -42,8 +101,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -61,17 +119,13 @@ ul.task-list li input[type="checkbox"] {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
+}</script><link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">MyLabJournal</span>
@@ -82,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
   </li>  
@@ -90,8 +144,8 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-journal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Journal</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">    
-        <li>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-journal">
+<li>
     <a class="dropdown-item" href="../../content/01_journal/01_tidyverse.html">
  <span class="dropdown-text">01 Tidyverse</span></a>
   </li>  
@@ -108,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">04 Data Visualization</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../../content/02_notes/05_class_notes.html">
  <span class="menu-text">Class notes</span></a>
@@ -118,26 +172,24 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Links</span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
+<div class="quarto-toggle-container">
                   <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
               </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+<li><a href="#challenge-2.1" id="toc-challenge-2.1" class="nav-link active" data-scroll-target="#challenge-2.1"><span class="toc-section-number">1</span>  Challenge 2.1</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Data Acquisition</h1>
 </div>
 
@@ -148,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Joschka Schwarz </p>
+             <p>Franziska Nissen </p>
           </div>
   </div>
     
@@ -157,26 +209,113 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header>
+</header><section id="challenge-2.1" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Challenge 2.1</h1>
+<p>For the first challenge I looked up the weather in Moliets-et-Maa since this is one of my vacation destinations for this summer.</p>
+<div class="cell" data-hash="02_data_acquisition_cache/html/unnamed-chunk-1_047caab7880ddab456ef6ca06e7a96e5">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># 1.0 LIBRARIES ----</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse) <span class="co"># Main Package - Loads dplyr, purrr, etc.</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(rvest)     <span class="co"># HTML Hacking &amp; Web Scraping</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(xopen)     <span class="co"># Quickly opening URLs</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(jsonlite)  <span class="co"># converts JSON files to R objects</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(glue)      <span class="co"># concatenate strings</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(stringi)   <span class="co"># character string/text processing</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Moliets' weather forecast for the next 16 days (21.05.2023) ----</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>weather_moliets          <span class="ot">&lt;-</span> <span class="st">"https://www.wetter.com/wetter_aktuell/wettervorhersage/16_tagesvorhersage/frankreich/moliets-et-maa/FR2993520.html"</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>html_weather    <span class="ot">&lt;-</span> weather_moliets <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="fu">read_html</span>()</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># The first week had another node than the last days, so I had to extract them two different ways and eventually add them back together</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a>date_8to16 <span class="ot">&lt;-</span> html_weather <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">html_nodes</span>(<span class="st">".no-hover .date"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>  stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">w+[:space:]</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">."</span>) </span>
+<span id="cb1-21"><a href="#cb1-21"></a>date_8to16</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; [1] "MO 29.05." "DI 30.05." "MI 31.05." "DO 01.06." "FR 02.06." "SA 03.06."
+#&gt; [7] "SO 04.06." "MO 05.06." "DI 06.06."</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>date_merged <span class="ot">&lt;-</span> html_weather <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">html_nodes</span>(<span class="st">".bg--blue-gradient .date"</span>) <span class="sc">%&gt;%</span> <span class="co"># these are only the first 7 days</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">c</span>(date_8to16) <span class="co"># so I added the last 11 days</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>date_merged </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  [1] "MO 22.05." "DI 23.05." "MI 24.05." "DO 25.05." "FR 26.05." "SA 27.05."
+#&gt;  [7] "SO 28.05." "MO 29.05." "DI 30.05." "MI 31.05." "DO 01.06." "FR 02.06."
+#&gt; [13] "SA 03.06." "SO 04.06." "MO 05.06." "DI 06.06."</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>weekday <span class="ot">&lt;-</span> date_merged <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">w+"</span>) <span class="co"># removes the date</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>weekday</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  [1] "MO" "DI" "MI" "DO" "FR" "SA" "SO" "MO" "DI" "MI" "DO" "FR" "SA" "SO" "MO"
+#&gt; [16] "DI"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># the dates of the weather forecast did not come with the year</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co"># Create a year vector, so I can add it to the date (dd.mm.) to turn it into the date format</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>          <span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>          <span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>,<span class="st">"2023"</span>) <span class="co"># I didn't know how to make it pretty</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>date <span class="ot">&lt;-</span> date_merged <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+</span><span class="sc">\\</span><span class="st">."</span>) <span class="sc">%&gt;%</span>  <span class="co"># extracting the weekday</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">paste</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>  stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">"[:space:]"</span>) <span class="sc">%&gt;%</span> <span class="co"># removing the space</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">dmy</span>() <span class="co"># That is the final date</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  [1] "2023-05-22" "2023-05-23" "2023-05-24" "2023-05-25" "2023-05-26"
+#&gt;  [6] "2023-05-27" "2023-05-28" "2023-05-29" "2023-05-30" "2023-05-31"
+#&gt; [11] "2023-06-01" "2023-06-02" "2023-06-03" "2023-06-04" "2023-06-05"
+#&gt; [16] "2023-06-06"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>max_temp <span class="ot">&lt;-</span> html_weather <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">html_nodes</span>(<span class="st">".temp-max"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb9-4"><a href="#cb9-4"></a>max_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  [1] "19°" "19°" "19°" "21°" "25°" "17°" "16°" "17°" "21°" "21°" "22°" "25°"
+#&gt; [13] "23°" "20°" "19°" "20°"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>min_temp <span class="ot">&lt;-</span> html_weather <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">html_nodes</span>(<span class="st">".temp-min"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+°"</span>) <span class="co"># removes the space and "/"</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>min_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  [1] "15°" "15°" "15°" "15°" "15°" "12°" "13°" "15°" "12°" "14°" "16°" "16°"
+#&gt; [13] "16°" "17°" "17°" "17°"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>weather_state <span class="ot">&lt;-</span> html_weather <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">html_nodes</span>(<span class="st">".weather-state"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  stringr<span class="sc">::</span><span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">w+[:space:]</span><span class="sc">\\</span><span class="st">w+|</span><span class="sc">\\</span><span class="st">w+"</span>) <span class="co"># wasn't pretty w/o the extraction</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>weather_state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt;  [1] "wolkig"         "wolkig"         "wolkig"         "leicht bewölkt"
+#&gt;  [5] "leicht bewölkt" "sonnig"         "sonnig"         "leicht bewölkt"
+#&gt;  [9] "sonnig"         "sonnig"         "sonnig"         "leicht bewölkt"
+#&gt; [13] "leicht bewölkt" "Regen"          "wolkig"         "wolkig"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># The final tibble</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>Weather_tbl_joined <span class="ot">&lt;-</span> <span class="fu">tibble</span>(date, weekday, max_temp, min_temp, weather_state)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>Weather_tbl_joined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["date"],"name":[1],"type":["date"],"align":["right"]},{"label":["weekday"],"name":[2],"type":["chr"],"align":["left"]},{"label":["max_temp"],"name":[3],"type":["chr"],"align":["left"]},{"label":["min_temp"],"name":[4],"type":["chr"],"align":["left"]},{"label":["weather_state"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"2023-05-22","2":"MO","3":"19°","4":"15°","5":"wolkig"},{"1":"2023-05-23","2":"DI","3":"19°","4":"15°","5":"wolkig"},{"1":"2023-05-24","2":"MI","3":"19°","4":"15°","5":"wolkig"},{"1":"2023-05-25","2":"DO","3":"21°","4":"15°","5":"leicht bewölkt"},{"1":"2023-05-26","2":"FR","3":"25°","4":"15°","5":"leicht bewölkt"},{"1":"2023-05-27","2":"SA","3":"17°","4":"12°","5":"sonnig"},{"1":"2023-05-28","2":"SO","3":"16°","4":"13°","5":"sonnig"},{"1":"2023-05-29","2":"MO","3":"17°","4":"15°","5":"leicht bewölkt"},{"1":"2023-05-30","2":"DI","3":"21°","4":"12°","5":"sonnig"},{"1":"2023-05-31","2":"MI","3":"21°","4":"14°","5":"sonnig"},{"1":"2023-06-01","2":"DO","3":"22°","4":"16°","5":"sonnig"},{"1":"2023-06-02","2":"FR","3":"25°","4":"16°","5":"leicht bewölkt"},{"1":"2023-06-03","2":"SA","3":"23°","4":"16°","5":"leicht bewölkt"},{"1":"2023-06-04","2":"SO","3":"20°","4":"17°","5":"Regen"},{"1":"2023-06-05","2":"MO","3":"19°","4":"17°","5":"wolkig"},{"1":"2023-06-06","2":"DI","3":"20°","4":"17°","5":"wolkig"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
 </div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can delete everything in here and start fresh.</p>
 </div>
 </div>
 
 
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
